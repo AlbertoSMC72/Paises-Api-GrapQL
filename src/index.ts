@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario } from "./repocitorio/usuariosds";
+import { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario, getPaisesUsuarios } from "./repocitorio/usuariosds";
 import { getPaises, getPais, postPais, putPais, deletePais } from "./repocitorio/paises";
 
 const typeDefs = `
@@ -11,7 +11,7 @@ const typeDefs = `
         codigo_iso: String
         capital: String
         idioma_principal: String
-        usuarios: [Usuario]  
+        Usuario: [Usuario]
     }
 
 
@@ -39,7 +39,7 @@ const typeDefs = `
         usuarios: [Usuario]
         usuario(id: ID): [Usuario]
         paises: [Pais]
-        pais(id: ID): [Pais]
+        pais(id: ID): Pais
     }
 
     type Mutation {
@@ -56,8 +56,30 @@ const resolvers = {
     Query: {
         usuarios: () => getUsuarios(),
         usuario: (_root: any, { id }: any) => getUsuario(id),
-        paises: () => getPaises(),
-        pais: (_root: any, { id }: any) => getPais(id),
+        paises: async () => {
+            const resPaises: any = await getPaises();
+            const paisesWithUsuarios: any[] = [];
+            for (const pais of resPaises) {
+                const resUsers: any = await getPaisesUsuarios(pais.id_paises);
+                const paisWithUsuarios = {
+                    ...pais,
+                    Usuario: resUsers
+                };
+                paisesWithUsuarios.push(paisWithUsuarios);
+                console.log(paisWithUsuarios);
+            }
+            return paisesWithUsuarios;
+        },
+        pais: async (_root: any, { id }: any) => {
+            const resPaises: any = await getPais(id)
+            const resUsers: any = await getPaisesUsuarios(id)
+            const newRes = {
+                ...resPaises[0],
+                Usuario: resUsers.length <= 1 ? [resUsers[0]] : resUsers
+            }
+            console.log(newRes)
+            return newRes
+        },
     },
     Mutation: {
         crearUsuario: (_root: any

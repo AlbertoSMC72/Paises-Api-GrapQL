@@ -35,3 +35,9 @@ export const deleteUsuario = (id: number) => new Promise((resolve, reject) => {
         .catch((error) => reject(error));
 });
 
+export const getPaisesUsuarios = (id: number) => new Promise((resolve, reject) => {
+    const consulta = "SELECT * FROM usuariosds WHERE Pais_id = ?";
+    db.query(consulta, [id])
+        .then(([rows]) => resolve(rows))
+        .catch((error) => reject(error));
+});
