@@ -39,6 +39,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `usuariosds`.`usuariosds` (
   `id_usuarios` INT NOT NULL AUTO_INCREMENT,
   `NombreUsuario` VARCHAR(255) NOT NULL,
+  `Contrasena` VARCHAR(255) NOT NULL,
   `Pais_id` INT NOT NULL,
   PRIMARY KEY (`id_usuarios`),
   INDEX `paisid_idx` (`Pais_id` ASC) VISIBLE,

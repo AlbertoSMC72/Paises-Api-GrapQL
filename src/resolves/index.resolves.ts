@@ -42,7 +42,7 @@ export const resolvers = {
         },
     },
     Mutation: {
-        crearUsuario: (_root: any, { input }: any) => createUsuario(input.usuariosds),
+        crearUsuario: (_root: any, { input }: any) => createUsuario(input.NombreUsuario, input.Contrasena, input.Pais_id),
         actualizarUsuario: (_root: any, { id, input }: any) =>
             updateUsuario(id, input.usuariosds),
         eliminarUsuario: (_root: any, { id }: any) => deleteUsuario(id),

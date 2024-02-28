@@ -14,9 +14,9 @@ export const getUsuario = (id: number) => new Promise((resolve, reject) => {
         .catch((error) => reject(error));
 });
 
-export const createUsuario = (NombreUsuario: string  ) => new Promise((resolve, reject) => {
-    const consulta = "INSERT INTO usuariosds (NombreUsuario) VALUES (?)";
-    db.query(consulta, [NombreUsuario ])
+export const createUsuario = (NombreUsuario: string, Contrasena:string, Pais_id:number   ) => new Promise((resolve, reject) => {
+    const consulta = "INSERT INTO usuariosds (NombreUsuario, Contrasena,Pais_id) VALUES (?,?,?)";
+    db.query(consulta, [NombreUsuario, Contrasena, Pais_id])
         .then(([result]) => resolve(result))
         .catch((error) => reject(error));
 });
