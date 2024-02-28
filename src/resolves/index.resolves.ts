@@ -44,7 +44,7 @@ export const resolvers = {
     Mutation: {
         crearUsuario: (_root: any, { input }: any) => createUsuario(input.NombreUsuario, input.Contrasena, input.Pais_id),
         actualizarUsuario: (_root: any, { id, input }: any) =>
-            updateUsuario(id, input.usuariosds),
+            updateUsuario(id, input.NombreUsuario, input.Contrasena, input.Pais_id),
         eliminarUsuario: (_root: any, { id }: any) => deleteUsuario(id),
         crearPais: (_root: any, { input }: any) =>
             postPais(

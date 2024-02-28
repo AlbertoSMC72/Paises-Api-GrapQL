@@ -21,9 +21,9 @@ export const createUsuario = (NombreUsuario: string, Contrasena:string, Pais_id:
         .catch((error) => reject(error));
 });
 
-export const updateUsuario = (id: number, nombre: string, ) => new Promise((resolve, reject) => {
-    const consulta = "UPDATE usuariosds SET nombre = ? WHERE id_usuarios = ?";
-    db.query(consulta, [nombre , id])
+export const updateUsuario = (id: number, NombreUsuario: string, Contrasena:string, Pais_id:number  ) => new Promise((resolve, reject) => {
+    const consulta = "UPDATE usuariosds SET NombreUsuario = ? , Contrasena = ? ,Pais_id = ? WHERE id_usuarios = ?";
+    db.query(consulta, [NombreUsuario, Contrasena, Pais_id , id])
         .then(([result]) => resolve(result))
         .catch((error) => reject(error));
 });
