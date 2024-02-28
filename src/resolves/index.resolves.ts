@@ -16,6 +16,7 @@ import {
 
 export const resolvers = {
     Query: {
+        /* aqui deveria estar la paginacion */
         usuarios: () => getUsuarios(),
         usuario: (_root: any, { id }: any) => getUsuario(id),
         paises: async () => {
@@ -42,7 +43,7 @@ export const resolvers = {
         },
     },
     Mutation: {
-        crearUsuario: (_root: any, { input }: any) => createUsuario(input.NombreUsuario, input.Contrasena, input.Pais_id),
+        crearUsuario: (_root: any, { input }: any) => createUsuario(input.NombreUsuario, /* aqui se deveria encriptar xd */input.Contrasena, input.Pais_id),
         actualizarUsuario: (_root: any, { id, input }: any) =>
             updateUsuario(id, input.NombreUsuario, input.Contrasena, input.Pais_id),
         eliminarUsuario: (_root: any, { id }: any) => deleteUsuario(id),

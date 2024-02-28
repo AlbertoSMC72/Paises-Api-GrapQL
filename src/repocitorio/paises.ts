@@ -1,5 +1,33 @@
 import { db } from "../config/confing";
 
+/* manera de paginar son en los get */
+
+//const index = async (req, res) => {
+//    try {
+//        const { page, limit } = req.query;
+//        const skip = (page - 1) * limit;
+//        let vacas;
+//
+//        if (page && limit) {
+//            vacas = await db.execute(
+//                `SELECT * FROM bovino WHERE deleted = 0 OR deleted IS NULL LIMIT ${skip},${limit} `
+//            );
+//        } else {
+//            vacas = await db.execute('SELECT * FROM bovino WHERE deleted = 0 OR deleted IS NULL');
+//        }
+//
+//        return res.status(200).json({
+//            message: 'Vacas obtenidas correctamente',
+//            vacas: vacas[0],
+//        });
+//    } catch (error) {
+//        return res.status(500).json({
+//            message: 'Hubo un error en el servidor',
+//            error: error.message,
+//        });
+//    }
+//};
+
 export const getPaises = () => new Promise((resolve, reject) => {
     const consulta = "SELECT * FROM paises";
     db.query(consulta)
